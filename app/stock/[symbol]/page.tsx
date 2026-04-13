@@ -1,8 +1,9 @@
 // Server Component — Next.js fetches the quote on the server before sending HTML.
 // No 'use client', no useEffect, no client-side loading spinner needed.
-import { fetchQuote } from '../../../lib/FinanceService'
-import type { QuoteData } from '../../../lib/FinanceService'
+import { fetchQuote, fetchHistoricalData } from '../../../lib/FinanceService'
+import type { QuoteData, HistoricalPoint } from '../../../lib/FinanceService'
 import BackButton from './BackButton'
+import PriceChart from './PriceChart'
 import './StockPage.css'
 
 // params is a Promise in Next.js 15+ and must be awaited before reading fields.
@@ -10,8 +11,12 @@ export default async function StockPage({ params }: { params: Promise<{ symbol: 
   const { symbol } = await params
 
   let data: QuoteData
+  let history: HistoricalPoint[]
   try {
-    data = await fetchQuote(symbol)
+    ;[data, history] = await Promise.all([
+      fetchQuote(symbol),
+      fetchHistoricalData(symbol),
+    ])
   } catch {
     return (
       <main className="page-content">
@@ -44,6 +49,10 @@ export default async function StockPage({ params }: { params: Promise<{ symbol: 
           )}
         </div>
       </div>
+
+      {history.length > 0 && (
+        <PriceChart data={history} />
+      )}
 
       <div className="stock-grid">
         <StatCard label="Market Cap" value={formatMarketCap(data.marketCap, data.currency)} />

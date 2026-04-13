@@ -1,6 +1,6 @@
 import YahooFinance from 'yahoo-finance2'
 
-const yahooFinance = new YahooFinance()
+const yahooFinance = new YahooFinance({ suppressNotices: ['ripHistorical'] })
 
 export type SearchResult = {
   symbol: string
@@ -131,6 +131,27 @@ function prefixScore(row: Row, q: string): number {
   if (name.startsWith(qLower)) return typeBonus + 10
   if (isIndex) return 5
   return 0
+}
+
+export type HistoricalPoint = {
+  time: string   // 'YYYY-MM-DD'
+  value: number  // adjClose ?? close
+}
+
+/** Fetches monthly historical close prices for a symbol, oldest-first, max available history. */
+export async function fetchHistoricalData(symbol: string): Promise<HistoricalPoint[]> {
+  const result = await yahooFinance.chart(symbol, {
+    period1: '1970-01-01',
+    period2: new Date(),
+    interval: '1mo',
+  })
+  return result.quotes
+    .filter((r) => r.close != null)
+    .map((r) => ({
+      time: (r.date instanceof Date ? r.date : new Date(r.date)).toISOString().slice(0, 10),
+      value: r.adjclose ?? r.close ?? 0,
+    }))
+    .sort((a, b) => a.time.localeCompare(b.time))
 }
 
 /** Fetches and normalises a full quote for a given symbol. */
