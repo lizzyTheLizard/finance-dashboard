@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm *)",
       "Bash(npx :*)",
-      "Bash(git :*)"
+      "Bash(git :*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx eslint:*)"
     ]
   }
 }

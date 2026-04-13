@@ -1,4 +1,5 @@
-import type { SearchResult } from '../../types/finance'
+'use client'
+import type { SearchResult } from '../../../lib/FinanceService'
 import './SearchDropdown.css'
 
 interface SearchDropdownProps {

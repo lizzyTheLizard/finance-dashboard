@@ -1,11 +1,18 @@
+'use client'
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import type { SearchResult, ApiError } from '../../types/finance'
+import { useRouter } from 'next/navigation'
+import type { SearchResult } from '../../../lib/FinanceService'
 import SearchDropdown from './SearchDropdown'
 import './Navbar.css'
 
-export default function Navbar() {
-  const navigate = useNavigate()
+interface NavbarProps {
+  // Server action passed from layout.tsx so this client component can trigger
+  // server-side Yahoo Finance searches without a /api/search route.
+  onSearch: (q: string) => Promise<SearchResult[]>
+}
+
+export default function Navbar({ onSearch }: NavbarProps) {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -36,17 +43,13 @@ export default function Navbar() {
       return
     }
 
+    // Debounce so we don't call the server action on every keystroke
     debounceTimer.current = setTimeout(async () => {
       setIsLoading(true)
       setIsOpen(true)
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`)
-        const json: SearchResult[] | ApiError = await res.json()
-        if ('error' in json) {
-          setResults([])
-        } else {
-          setResults(json)
-        }
+        const data = await onSearch(value)
+        setResults(data)
       } catch {
         setResults([])
       } finally {
@@ -59,7 +62,7 @@ export default function Navbar() {
     setIsOpen(false)
     setQuery('')
     setResults([])
-    navigate(`/stock/${result.symbol}`)
+    router.push(`/stock/${result.symbol}`)
   }
 
   function handleFocus() {
@@ -77,7 +80,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <button className="navbar-logo" onClick={() => navigate('/')} aria-label="Go to home">
+        <button className="navbar-logo" onClick={() => router.push('/')} aria-label="Go to home">
           <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
             <rect width="32" height="32" rx="7" fill="var(--accent)" />
             <polygon points="5,24 10,18 15,21 21,13 27,8 27,28 5,28" fill="white" opacity="0.2" />
@@ -108,7 +111,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="navbar-right">
-        <button className="navbar-info-btn" onClick={() => navigate('/info')} aria-label="Go to info">
+        <button className="navbar-info-btn" onClick={() => router.push('/info')} aria-label="Go to info">
           i
         </button>
       </div>
