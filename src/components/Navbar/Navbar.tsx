@@ -9,8 +9,10 @@ export default function Navbar() {
       <div className="navbar-left">
         <button className="navbar-logo" onClick={() => navigate('/')} aria-label="Go to home">
           <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="16" r="16" fill="currentColor" />
-            <polygon points="16,8 26,24 6,24" fill="white" />
+            <rect width="32" height="32" rx="7" fill="var(--accent)" />
+            <polygon points="5,24 10,18 15,21 21,13 27,8 27,28 5,28" fill="white" opacity="0.2" />
+            <polyline points="5,24 10,18 15,21 21,13 27,8" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="27" cy="8" r="2.5" fill="white" />
           </svg>
           <span className="navbar-logo-text">finance.gutschi.site</span>
         </button>
