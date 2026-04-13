@@ -15,6 +15,7 @@ Next.js 16 App Router project. No separate backend — data fetching is done ser
 - No `/api` routes. Stock data = SSR. Search = server action called from Navbar.
 - `yahoo-finance2` instance created once at module load in `FinanceService.ts` (not per request).
 - Search runs 3 parallel Yahoo queries (bare / +' corp' / +' index') to improve coverage.
+- Both mobile (375px+) and desktop views must be supported. Use the `480px` breakpoint for mobile-specific rules.
 
 ## Commands
 ```bash

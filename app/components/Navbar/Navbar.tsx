@@ -17,6 +17,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
   const [results, setResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -66,9 +67,14 @@ export default function Navbar({ onSearch }: NavbarProps) {
   }
 
   function handleFocus() {
+    setIsFocused(true)
     if (results.length > 0 && query.length >= 2) {
       setIsOpen(true)
     }
+  }
+
+  function handleBlur() {
+    setIsFocused(false)
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -78,7 +84,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
   }
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar${isFocused ? ' navbar--search-focused' : ''}`}>
       <div className="navbar-left">
         <button className="navbar-logo" onClick={() => router.push('/')} aria-label="Go to home">
           <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -99,6 +105,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
             value={query}
             onChange={handleChange}
             onFocus={handleFocus}
+            onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             autoComplete="off"
           />

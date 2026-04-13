@@ -61,6 +61,10 @@ body {
   margin-top: var(--navbar-height);
   flex: 1;
   padding: 24px;
+
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
 }
 
 h1,

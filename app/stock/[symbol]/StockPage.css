@@ -106,6 +106,10 @@
   gap: 12px;
   max-width: 900px;
   margin: 0 auto 32px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .stat-card {
