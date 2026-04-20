@@ -1,0 +1,44 @@
+.page-footer {
+  background: #1a1a1a;
+  color: #999999;
+  padding: 24px 40px;
+  display: flex;
+  gap: 40px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.page-footer a,
+.page-footer button {
+  color: #999999;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--sans);
+  padding: 0;
+}
+
+.page-footer a:hover,
+.page-footer button:hover {
+  color: #ffffff;
+}
+
+.page-footer span {
+  margin-left: auto;
+}
+
+@media (max-width: 480px) {
+  .page-footer {
+    gap: 16px;
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .page-footer span {
+    margin-left: auto;
+  }
+}

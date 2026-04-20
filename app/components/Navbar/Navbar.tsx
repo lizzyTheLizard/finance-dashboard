@@ -90,6 +90,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
             <polyline points="5,24 10,18 15,21 21,13 27,8" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="27" cy="8" r="2.5" fill="white" />
           </svg>
+          <span>FinancialInfo</span>
         </button>
       </div>
       <div className="navbar-center">
@@ -97,7 +98,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
           <input
             className="navbar-search"
             type="search"
-            placeholder="Enter a Company, Stock, or Index"
+            placeholder="Search stocks, funds, news…"
             value={query}
             onChange={handleChange}
             onFocus={handleFocus}
@@ -115,8 +116,12 @@ export default function Navbar({ onSearch }: NavbarProps) {
         </div>
       </div>
       <div className="navbar-right">
-        <button className="navbar-info-btn" onClick={() => router.push('/info')} aria-label="Go to info">
-          i
+        <button className="navbar-help-link" onClick={() => router.push('/info')} aria-label="Go to info">Info & Help</button>
+        <button className="navbar-info-icon" onClick={() => router.push('/info')} aria-label="Go to info">i</button>
+        <div className="navbar-divider"></div>
+        <button className="navbar-profile" aria-label="User profile">
+          <div className="navbar-avatar">M</div>
+          <span>My Profile ▾</span>
         </button>
       </div>
     </nav>

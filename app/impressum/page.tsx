@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import Footer from '../components/Footer/Footer'
 
-export default function InfoPage() {
+export default function ImpressumPage() {
   const router = useRouter()
 
   return (
@@ -23,8 +23,8 @@ export default function InfoPage() {
           ← Back
         </button>
 
-        <h1>Info & Help</h1>
-        <p style={{ color: 'var(--text)', fontSize: '16px' }}>Info and help content will be added here.</p>
+        <h1>Impressum</h1>
+        <p style={{ color: 'var(--text)', fontSize: '16px' }}>Impressum content will be added here.</p>
       </main>
 
       <Footer />
