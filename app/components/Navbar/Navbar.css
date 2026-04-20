@@ -76,15 +76,6 @@
   line-height: 1;
 }
 
-.navbar-logo-text {
-  font-size: 11px;
-  color: var(--text);
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-}
-
 .navbar-search {
   width: 100%;
   padding: 6px 14px;

@@ -93,7 +93,6 @@ export default function Navbar({ onSearch }: NavbarProps) {
             <polyline points="5,24 10,18 15,21 21,13 27,8" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="27" cy="8" r="2.5" fill="white" />
           </svg>
-          <span className="navbar-logo-text">finance.gutschi.site</span>
         </button>
       </div>
       <div className="navbar-center">
