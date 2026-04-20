@@ -9,12 +9,18 @@ interface SearchDropdownProps {
   onSelect: (result: SearchResult) => void
 }
 
-export default function SearchDropdown({ results, isLoading, isOpen, onSelect }: SearchDropdownProps) {
+interface SearchDropdownPropsWithQuery extends SearchDropdownProps {
+  query: string
+}
+
+export default function SearchDropdown({ results, isLoading, isOpen, onSelect, query }: SearchDropdownPropsWithQuery) {
   if (!isOpen) return null
 
   return (
     <ul className="search-dropdown" role="listbox">
-      {isLoading ? (
+      {query.length < 2 ? (
+        <li className="search-dropdown-status">Type something to search</li>
+      ) : isLoading ? (
         <li className="search-dropdown-status">Searching…</li>
       ) : results.length === 0 ? (
         <li className="search-dropdown-status">No results found</li>

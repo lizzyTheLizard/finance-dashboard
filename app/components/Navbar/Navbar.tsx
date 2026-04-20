@@ -40,14 +40,12 @@ export default function Navbar({ onSearch }: NavbarProps) {
 
     if (value.length < 2) {
       setResults([])
-      setIsOpen(false)
       return
     }
 
     // Debounce so we don't call the server action on every keystroke
     debounceTimer.current = setTimeout(async () => {
       setIsLoading(true)
-      setIsOpen(true)
       try {
         const data = await onSearch(value)
         setResults(data)
@@ -68,13 +66,12 @@ export default function Navbar({ onSearch }: NavbarProps) {
 
   function handleFocus() {
     setIsFocused(true)
-    if (results.length > 0 && query.length >= 2) {
-      setIsOpen(true)
-    }
+    setIsOpen(true)
   }
 
   function handleBlur() {
     setIsFocused(false)
+    setIsOpen(false)
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -113,6 +110,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
             isLoading={isLoading}
             isOpen={isOpen}
             onSelect={handleSelect}
+            query={query}
           />
         </div>
       </div>
