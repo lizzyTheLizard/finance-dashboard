@@ -19,8 +19,8 @@ Next.js 16 App Router project. No separate backend — data fetching is done ser
 
 ## Commands
 ```bash
-npm run dev    # Next.js dev server on :3000
-npm run build  # Production build
-npm run start  # Production server (serves app + handles server actions)
-npm run lint   # ESLint
+pnpm dev       # Next.js dev server on :3000
+pnpm build     # Production build
+pnpm start     # Production server (serves app + handles server actions)
+pnpm lint      # ESLint
 ```

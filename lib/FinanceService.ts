@@ -65,7 +65,8 @@ async function runParallelSearches(q: string): Promise<Row[]> {
 // Filters a raw Yahoo Finance quotes array to PRIMARY_TYPES and maps to Row.
 // Returns an empty array on null/undefined input so one failing branch
 // does not collapse the whole search.
-function mapQuotes(quotes: Awaited<ReturnType<typeof yahooFinance.search>>['quotes']): Row[] {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapQuotes(quotes: any[] | null | undefined): Row[] {
   return (quotes ?? [])
     .filter((q) => 'quoteType' in q && PRIMARY_TYPES.has((q.quoteType ?? '').toUpperCase()))
     .map((q) => ({

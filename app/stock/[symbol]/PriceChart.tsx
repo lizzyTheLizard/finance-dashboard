@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { createChart, AreaSeries } from 'lightweight-charts'
+import { createChart, AreaSeries, ColorType } from 'lightweight-charts'
 import type { IChartApi } from 'lightweight-charts'
 import type { HistoricalPoint } from '../../../lib/FinanceService'
 
@@ -33,7 +33,7 @@ export default function PriceChart({ data }: PriceChartProps) {
 
     const chart = createChart(container, {
       layout: {
-        background: { type: 'solid', color: colors.background },
+        background: { type: ColorType.Solid, color: colors.background },
         textColor: colors.text,
         fontFamily: 'ui-monospace, Consolas, monospace',
       },
@@ -67,7 +67,7 @@ export default function PriceChart({ data }: PriceChartProps) {
     const onSchemeChange = (e: MediaQueryListEvent) => {
       const next = getChartColors(e.matches)
       chart.applyOptions({
-        layout: { background: { type: 'solid', color: next.background }, textColor: next.text },
+        layout: { background: { type: ColorType.Solid, color: next.background }, textColor: next.text },
         grid: { vertLines: { color: next.grid }, horzLines: { color: next.grid } },
         rightPriceScale: { borderColor: next.border },
         timeScale: { borderColor: next.border },
